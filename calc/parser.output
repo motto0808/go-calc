@@ -1,0 +1,995 @@
+
+state 0
+	$accept: .statements $end 
+	statements: .    (1)
+
+	IDENT  shift 6
+	NUMBER  shift 5
+	VAR  shift 4
+	'-'  shift 8
+	'!'  shift 7
+	'('  shift 9
+	.  reduce 1 (src line 47)
+
+	statements  goto 1
+	statement  goto 2
+	expr  goto 3
+
+state 1
+	$accept:  statements.$end 
+
+	$end  accept
+	.  error
+
+
+state 2
+	statements:  statement.statements 
+	statements: .    (1)
+
+	IDENT  shift 6
+	NUMBER  shift 5
+	VAR  shift 4
+	'-'  shift 8
+	'!'  shift 7
+	'('  shift 9
+	.  reduce 1 (src line 47)
+
+	statements  goto 10
+	statement  goto 2
+	expr  goto 3
+
+state 3
+	statement:  expr.';' 
+	expr:  expr.'?' expr ':' expr 
+	expr:  expr.IN array 
+	expr:  expr.LAND expr 
+	expr:  expr.LOR expr 
+	expr:  expr.EQ expr 
+	expr:  expr.NE expr 
+	expr:  expr.LE expr 
+	expr:  expr.LT expr 
+	expr:  expr.GE expr 
+	expr:  expr.GT expr 
+	expr:  expr.'+' expr 
+	expr:  expr.'-' expr 
+	expr:  expr.'*' expr 
+	expr:  expr.'/' expr 
+	expr:  expr.'%' expr 
+
+	'?'  shift 12
+	LOR  shift 15
+	LAND  shift 14
+	EQ  shift 16
+	NE  shift 17
+	LE  shift 18
+	LT  shift 19
+	GE  shift 20
+	GT  shift 21
+	IN  shift 13
+	'+'  shift 22
+	'-'  shift 23
+	'*'  shift 24
+	'/'  shift 25
+	'%'  shift 26
+	';'  shift 11
+	.  error
+
+
+state 4
+	statement:  VAR.IDENT '=' expr ';' 
+
+	IDENT  shift 27
+	.  error
+
+
+state 5
+	expr:  NUMBER.    (5)
+
+	.  reduce 5 (src line 73)
+
+
+state 6
+	expr:  IDENT.    (6)
+
+	.  reduce 6 (src line 77)
+
+
+state 7
+	expr:  '!'.expr 
+
+	IDENT  shift 6
+	NUMBER  shift 5
+	'-'  shift 8
+	'!'  shift 7
+	'('  shift 9
+	.  error
+
+	expr  goto 28
+
+state 8
+	expr:  '-'.expr 
+
+	IDENT  shift 6
+	NUMBER  shift 5
+	'-'  shift 8
+	'!'  shift 7
+	'('  shift 9
+	.  error
+
+	expr  goto 29
+
+state 9
+	expr:  '('.expr ')' 
+
+	IDENT  shift 6
+	NUMBER  shift 5
+	'-'  shift 8
+	'!'  shift 7
+	'('  shift 9
+	.  error
+
+	expr  goto 30
+
+state 10
+	statements:  statement statements.    (2)
+
+	.  reduce 2 (src line 55)
+
+
+state 11
+	statement:  expr ';'.    (3)
+
+	.  reduce 3 (src line 63)
+
+
+state 12
+	expr:  expr '?'.expr ':' expr 
+
+	IDENT  shift 6
+	NUMBER  shift 5
+	'-'  shift 8
+	'!'  shift 7
+	'('  shift 9
+	.  error
+
+	expr  goto 31
+
+state 13
+	expr:  expr IN.array 
+
+	'['  shift 33
+	.  error
+
+	array  goto 32
+
+state 14
+	expr:  expr LAND.expr 
+
+	IDENT  shift 6
+	NUMBER  shift 5
+	'-'  shift 8
+	'!'  shift 7
+	'('  shift 9
+	.  error
+
+	expr  goto 34
+
+state 15
+	expr:  expr LOR.expr 
+
+	IDENT  shift 6
+	NUMBER  shift 5
+	'-'  shift 8
+	'!'  shift 7
+	'('  shift 9
+	.  error
+
+	expr  goto 35
+
+state 16
+	expr:  expr EQ.expr 
+
+	IDENT  shift 6
+	NUMBER  shift 5
+	'-'  shift 8
+	'!'  shift 7
+	'('  shift 9
+	.  error
+
+	expr  goto 36
+
+state 17
+	expr:  expr NE.expr 
+
+	IDENT  shift 6
+	NUMBER  shift 5
+	'-'  shift 8
+	'!'  shift 7
+	'('  shift 9
+	.  error
+
+	expr  goto 37
+
+state 18
+	expr:  expr LE.expr 
+
+	IDENT  shift 6
+	NUMBER  shift 5
+	'-'  shift 8
+	'!'  shift 7
+	'('  shift 9
+	.  error
+
+	expr  goto 38
+
+state 19
+	expr:  expr LT.expr 
+
+	IDENT  shift 6
+	NUMBER  shift 5
+	'-'  shift 8
+	'!'  shift 7
+	'('  shift 9
+	.  error
+
+	expr  goto 39
+
+state 20
+	expr:  expr GE.expr 
+
+	IDENT  shift 6
+	NUMBER  shift 5
+	'-'  shift 8
+	'!'  shift 7
+	'('  shift 9
+	.  error
+
+	expr  goto 40
+
+state 21
+	expr:  expr GT.expr 
+
+	IDENT  shift 6
+	NUMBER  shift 5
+	'-'  shift 8
+	'!'  shift 7
+	'('  shift 9
+	.  error
+
+	expr  goto 41
+
+state 22
+	expr:  expr '+'.expr 
+
+	IDENT  shift 6
+	NUMBER  shift 5
+	'-'  shift 8
+	'!'  shift 7
+	'('  shift 9
+	.  error
+
+	expr  goto 42
+
+state 23
+	expr:  expr '-'.expr 
+
+	IDENT  shift 6
+	NUMBER  shift 5
+	'-'  shift 8
+	'!'  shift 7
+	'('  shift 9
+	.  error
+
+	expr  goto 43
+
+state 24
+	expr:  expr '*'.expr 
+
+	IDENT  shift 6
+	NUMBER  shift 5
+	'-'  shift 8
+	'!'  shift 7
+	'('  shift 9
+	.  error
+
+	expr  goto 44
+
+state 25
+	expr:  expr '/'.expr 
+
+	IDENT  shift 6
+	NUMBER  shift 5
+	'-'  shift 8
+	'!'  shift 7
+	'('  shift 9
+	.  error
+
+	expr  goto 45
+
+state 26
+	expr:  expr '%'.expr 
+
+	IDENT  shift 6
+	NUMBER  shift 5
+	'-'  shift 8
+	'!'  shift 7
+	'('  shift 9
+	.  error
+
+	expr  goto 46
+
+state 27
+	statement:  VAR IDENT.'=' expr ';' 
+
+	'='  shift 47
+	.  error
+
+
+state 28
+	expr:  expr.'?' expr ':' expr 
+	expr:  expr.IN array 
+	expr:  '!' expr.    (9)
+	expr:  expr.LAND expr 
+	expr:  expr.LOR expr 
+	expr:  expr.EQ expr 
+	expr:  expr.NE expr 
+	expr:  expr.LE expr 
+	expr:  expr.LT expr 
+	expr:  expr.GE expr 
+	expr:  expr.GT expr 
+	expr:  expr.'+' expr 
+	expr:  expr.'-' expr 
+	expr:  expr.'*' expr 
+	expr:  expr.'/' expr 
+	expr:  expr.'%' expr 
+
+	.  reduce 9 (src line 89)
+
+
+state 29
+	expr:  expr.'?' expr ':' expr 
+	expr:  expr.IN array 
+	expr:  '-' expr.    (10)
+	expr:  expr.LAND expr 
+	expr:  expr.LOR expr 
+	expr:  expr.EQ expr 
+	expr:  expr.NE expr 
+	expr:  expr.LE expr 
+	expr:  expr.LT expr 
+	expr:  expr.GE expr 
+	expr:  expr.GT expr 
+	expr:  expr.'+' expr 
+	expr:  expr.'-' expr 
+	expr:  expr.'*' expr 
+	expr:  expr.'/' expr 
+	expr:  expr.'%' expr 
+
+	.  reduce 10 (src line 93)
+
+
+state 30
+	expr:  expr.'?' expr ':' expr 
+	expr:  expr.IN array 
+	expr:  '(' expr.')' 
+	expr:  expr.LAND expr 
+	expr:  expr.LOR expr 
+	expr:  expr.EQ expr 
+	expr:  expr.NE expr 
+	expr:  expr.LE expr 
+	expr:  expr.LT expr 
+	expr:  expr.GE expr 
+	expr:  expr.GT expr 
+	expr:  expr.'+' expr 
+	expr:  expr.'-' expr 
+	expr:  expr.'*' expr 
+	expr:  expr.'/' expr 
+	expr:  expr.'%' expr 
+
+	'?'  shift 12
+	LOR  shift 15
+	LAND  shift 14
+	EQ  shift 16
+	NE  shift 17
+	LE  shift 18
+	LT  shift 19
+	GE  shift 20
+	GT  shift 21
+	IN  shift 13
+	'+'  shift 22
+	'-'  shift 23
+	'*'  shift 24
+	'/'  shift 25
+	'%'  shift 26
+	')'  shift 48
+	.  error
+
+
+state 31
+	expr:  expr.'?' expr ':' expr 
+	expr:  expr '?' expr.':' expr 
+	expr:  expr.IN array 
+	expr:  expr.LAND expr 
+	expr:  expr.LOR expr 
+	expr:  expr.EQ expr 
+	expr:  expr.NE expr 
+	expr:  expr.LE expr 
+	expr:  expr.LT expr 
+	expr:  expr.GE expr 
+	expr:  expr.GT expr 
+	expr:  expr.'+' expr 
+	expr:  expr.'-' expr 
+	expr:  expr.'*' expr 
+	expr:  expr.'/' expr 
+	expr:  expr.'%' expr 
+
+	'?'  shift 12
+	':'  shift 49
+	LOR  shift 15
+	LAND  shift 14
+	EQ  shift 16
+	NE  shift 17
+	LE  shift 18
+	LT  shift 19
+	GE  shift 20
+	GT  shift 21
+	IN  shift 13
+	'+'  shift 22
+	'-'  shift 23
+	'*'  shift 24
+	'/'  shift 25
+	'%'  shift 26
+	.  error
+
+
+state 32
+	expr:  expr IN array.    (8)
+
+	.  reduce 8 (src line 85)
+
+
+state 33
+	array:  '['.array_element ']' 
+	array:  '['.']' 
+
+	NUMBER  shift 52
+	']'  shift 51
+	.  error
+
+	array_element  goto 50
+
+state 34
+	expr:  expr.'?' expr ':' expr 
+	expr:  expr.IN array 
+	expr:  expr.LAND expr 
+	expr:  expr LAND expr.    (12)
+	expr:  expr.LOR expr 
+	expr:  expr.EQ expr 
+	expr:  expr.NE expr 
+	expr:  expr.LE expr 
+	expr:  expr.LT expr 
+	expr:  expr.GE expr 
+	expr:  expr.GT expr 
+	expr:  expr.'+' expr 
+	expr:  expr.'-' expr 
+	expr:  expr.'*' expr 
+	expr:  expr.'/' expr 
+	expr:  expr.'%' expr 
+
+	EQ  shift 16
+	NE  shift 17
+	LE  shift 18
+	LT  shift 19
+	GE  shift 20
+	GT  shift 21
+	IN  shift 13
+	'+'  shift 22
+	'-'  shift 23
+	'*'  shift 24
+	'/'  shift 25
+	'%'  shift 26
+	.  reduce 12 (src line 101)
+
+
+state 35
+	expr:  expr.'?' expr ':' expr 
+	expr:  expr.IN array 
+	expr:  expr.LAND expr 
+	expr:  expr.LOR expr 
+	expr:  expr LOR expr.    (13)
+	expr:  expr.EQ expr 
+	expr:  expr.NE expr 
+	expr:  expr.LE expr 
+	expr:  expr.LT expr 
+	expr:  expr.GE expr 
+	expr:  expr.GT expr 
+	expr:  expr.'+' expr 
+	expr:  expr.'-' expr 
+	expr:  expr.'*' expr 
+	expr:  expr.'/' expr 
+	expr:  expr.'%' expr 
+
+	LAND  shift 14
+	EQ  shift 16
+	NE  shift 17
+	LE  shift 18
+	LT  shift 19
+	GE  shift 20
+	GT  shift 21
+	IN  shift 13
+	'+'  shift 22
+	'-'  shift 23
+	'*'  shift 24
+	'/'  shift 25
+	'%'  shift 26
+	.  reduce 13 (src line 103)
+
+
+state 36
+	expr:  expr.'?' expr ':' expr 
+	expr:  expr.IN array 
+	expr:  expr.LAND expr 
+	expr:  expr.LOR expr 
+	expr:  expr.EQ expr 
+	expr:  expr EQ expr.    (14)
+	expr:  expr.NE expr 
+	expr:  expr.LE expr 
+	expr:  expr.LT expr 
+	expr:  expr.GE expr 
+	expr:  expr.GT expr 
+	expr:  expr.'+' expr 
+	expr:  expr.'-' expr 
+	expr:  expr.'*' expr 
+	expr:  expr.'/' expr 
+	expr:  expr.'%' expr 
+
+	EQ  error
+	NE  error
+	LE  error
+	LT  error
+	GE  error
+	GT  error
+	IN  shift 13
+	'+'  shift 22
+	'-'  shift 23
+	'*'  shift 24
+	'/'  shift 25
+	'%'  shift 26
+	.  reduce 14 (src line 105)
+
+
+state 37
+	expr:  expr.'?' expr ':' expr 
+	expr:  expr.IN array 
+	expr:  expr.LAND expr 
+	expr:  expr.LOR expr 
+	expr:  expr.EQ expr 
+	expr:  expr.NE expr 
+	expr:  expr NE expr.    (15)
+	expr:  expr.LE expr 
+	expr:  expr.LT expr 
+	expr:  expr.GE expr 
+	expr:  expr.GT expr 
+	expr:  expr.'+' expr 
+	expr:  expr.'-' expr 
+	expr:  expr.'*' expr 
+	expr:  expr.'/' expr 
+	expr:  expr.'%' expr 
+
+	EQ  error
+	NE  error
+	LE  error
+	LT  error
+	GE  error
+	GT  error
+	IN  shift 13
+	'+'  shift 22
+	'-'  shift 23
+	'*'  shift 24
+	'/'  shift 25
+	'%'  shift 26
+	.  reduce 15 (src line 107)
+
+
+state 38
+	expr:  expr.'?' expr ':' expr 
+	expr:  expr.IN array 
+	expr:  expr.LAND expr 
+	expr:  expr.LOR expr 
+	expr:  expr.EQ expr 
+	expr:  expr.NE expr 
+	expr:  expr.LE expr 
+	expr:  expr LE expr.    (16)
+	expr:  expr.LT expr 
+	expr:  expr.GE expr 
+	expr:  expr.GT expr 
+	expr:  expr.'+' expr 
+	expr:  expr.'-' expr 
+	expr:  expr.'*' expr 
+	expr:  expr.'/' expr 
+	expr:  expr.'%' expr 
+
+	EQ  error
+	NE  error
+	LE  error
+	LT  error
+	GE  error
+	GT  error
+	IN  shift 13
+	'+'  shift 22
+	'-'  shift 23
+	'*'  shift 24
+	'/'  shift 25
+	'%'  shift 26
+	.  reduce 16 (src line 109)
+
+
+state 39
+	expr:  expr.'?' expr ':' expr 
+	expr:  expr.IN array 
+	expr:  expr.LAND expr 
+	expr:  expr.LOR expr 
+	expr:  expr.EQ expr 
+	expr:  expr.NE expr 
+	expr:  expr.LE expr 
+	expr:  expr.LT expr 
+	expr:  expr LT expr.    (17)
+	expr:  expr.GE expr 
+	expr:  expr.GT expr 
+	expr:  expr.'+' expr 
+	expr:  expr.'-' expr 
+	expr:  expr.'*' expr 
+	expr:  expr.'/' expr 
+	expr:  expr.'%' expr 
+
+	EQ  error
+	NE  error
+	LE  error
+	LT  error
+	GE  error
+	GT  error
+	IN  shift 13
+	'+'  shift 22
+	'-'  shift 23
+	'*'  shift 24
+	'/'  shift 25
+	'%'  shift 26
+	.  reduce 17 (src line 111)
+
+
+state 40
+	expr:  expr.'?' expr ':' expr 
+	expr:  expr.IN array 
+	expr:  expr.LAND expr 
+	expr:  expr.LOR expr 
+	expr:  expr.EQ expr 
+	expr:  expr.NE expr 
+	expr:  expr.LE expr 
+	expr:  expr.LT expr 
+	expr:  expr.GE expr 
+	expr:  expr GE expr.    (18)
+	expr:  expr.GT expr 
+	expr:  expr.'+' expr 
+	expr:  expr.'-' expr 
+	expr:  expr.'*' expr 
+	expr:  expr.'/' expr 
+	expr:  expr.'%' expr 
+
+	EQ  error
+	NE  error
+	LE  error
+	LT  error
+	GE  error
+	GT  error
+	IN  shift 13
+	'+'  shift 22
+	'-'  shift 23
+	'*'  shift 24
+	'/'  shift 25
+	'%'  shift 26
+	.  reduce 18 (src line 113)
+
+
+state 41
+	expr:  expr.'?' expr ':' expr 
+	expr:  expr.IN array 
+	expr:  expr.LAND expr 
+	expr:  expr.LOR expr 
+	expr:  expr.EQ expr 
+	expr:  expr.NE expr 
+	expr:  expr.LE expr 
+	expr:  expr.LT expr 
+	expr:  expr.GE expr 
+	expr:  expr.GT expr 
+	expr:  expr GT expr.    (19)
+	expr:  expr.'+' expr 
+	expr:  expr.'-' expr 
+	expr:  expr.'*' expr 
+	expr:  expr.'/' expr 
+	expr:  expr.'%' expr 
+
+	EQ  error
+	NE  error
+	LE  error
+	LT  error
+	GE  error
+	GT  error
+	IN  shift 13
+	'+'  shift 22
+	'-'  shift 23
+	'*'  shift 24
+	'/'  shift 25
+	'%'  shift 26
+	.  reduce 19 (src line 115)
+
+
+state 42
+	expr:  expr.'?' expr ':' expr 
+	expr:  expr.IN array 
+	expr:  expr.LAND expr 
+	expr:  expr.LOR expr 
+	expr:  expr.EQ expr 
+	expr:  expr.NE expr 
+	expr:  expr.LE expr 
+	expr:  expr.LT expr 
+	expr:  expr.GE expr 
+	expr:  expr.GT expr 
+	expr:  expr.'+' expr 
+	expr:  expr '+' expr.    (20)
+	expr:  expr.'-' expr 
+	expr:  expr.'*' expr 
+	expr:  expr.'/' expr 
+	expr:  expr.'%' expr 
+
+	'*'  shift 24
+	'/'  shift 25
+	'%'  shift 26
+	.  reduce 20 (src line 117)
+
+
+state 43
+	expr:  expr.'?' expr ':' expr 
+	expr:  expr.IN array 
+	expr:  expr.LAND expr 
+	expr:  expr.LOR expr 
+	expr:  expr.EQ expr 
+	expr:  expr.NE expr 
+	expr:  expr.LE expr 
+	expr:  expr.LT expr 
+	expr:  expr.GE expr 
+	expr:  expr.GT expr 
+	expr:  expr.'+' expr 
+	expr:  expr.'-' expr 
+	expr:  expr '-' expr.    (21)
+	expr:  expr.'*' expr 
+	expr:  expr.'/' expr 
+	expr:  expr.'%' expr 
+
+	'*'  shift 24
+	'/'  shift 25
+	'%'  shift 26
+	.  reduce 21 (src line 119)
+
+
+state 44
+	expr:  expr.'?' expr ':' expr 
+	expr:  expr.IN array 
+	expr:  expr.LAND expr 
+	expr:  expr.LOR expr 
+	expr:  expr.EQ expr 
+	expr:  expr.NE expr 
+	expr:  expr.LE expr 
+	expr:  expr.LT expr 
+	expr:  expr.GE expr 
+	expr:  expr.GT expr 
+	expr:  expr.'+' expr 
+	expr:  expr.'-' expr 
+	expr:  expr.'*' expr 
+	expr:  expr '*' expr.    (22)
+	expr:  expr.'/' expr 
+	expr:  expr.'%' expr 
+
+	.  reduce 22 (src line 121)
+
+
+state 45
+	expr:  expr.'?' expr ':' expr 
+	expr:  expr.IN array 
+	expr:  expr.LAND expr 
+	expr:  expr.LOR expr 
+	expr:  expr.EQ expr 
+	expr:  expr.NE expr 
+	expr:  expr.LE expr 
+	expr:  expr.LT expr 
+	expr:  expr.GE expr 
+	expr:  expr.GT expr 
+	expr:  expr.'+' expr 
+	expr:  expr.'-' expr 
+	expr:  expr.'*' expr 
+	expr:  expr.'/' expr 
+	expr:  expr '/' expr.    (23)
+	expr:  expr.'%' expr 
+
+	.  reduce 23 (src line 123)
+
+
+state 46
+	expr:  expr.'?' expr ':' expr 
+	expr:  expr.IN array 
+	expr:  expr.LAND expr 
+	expr:  expr.LOR expr 
+	expr:  expr.EQ expr 
+	expr:  expr.NE expr 
+	expr:  expr.LE expr 
+	expr:  expr.LT expr 
+	expr:  expr.GE expr 
+	expr:  expr.GT expr 
+	expr:  expr.'+' expr 
+	expr:  expr.'-' expr 
+	expr:  expr.'*' expr 
+	expr:  expr.'/' expr 
+	expr:  expr.'%' expr 
+	expr:  expr '%' expr.    (24)
+
+	.  reduce 24 (src line 125)
+
+
+state 47
+	statement:  VAR IDENT '='.expr ';' 
+
+	IDENT  shift 6
+	NUMBER  shift 5
+	'-'  shift 8
+	'!'  shift 7
+	'('  shift 9
+	.  error
+
+	expr  goto 53
+
+state 48
+	expr:  '(' expr ')'.    (11)
+
+	.  reduce 11 (src line 97)
+
+
+state 49
+	expr:  expr '?' expr ':'.expr 
+
+	IDENT  shift 6
+	NUMBER  shift 5
+	'-'  shift 8
+	'!'  shift 7
+	'('  shift 9
+	.  error
+
+	expr  goto 54
+
+state 50
+	array:  '[' array_element.']' 
+	array_element:  array_element.',' NUMBER 
+
+	','  shift 56
+	']'  shift 55
+	.  error
+
+
+state 51
+	array:  '[' ']'.    (26)
+
+	.  reduce 26 (src line 133)
+
+
+state 52
+	array_element:  NUMBER.    (27)
+
+	.  reduce 27 (src line 139)
+
+
+state 53
+	statement:  VAR IDENT '=' expr.';' 
+	expr:  expr.'?' expr ':' expr 
+	expr:  expr.IN array 
+	expr:  expr.LAND expr 
+	expr:  expr.LOR expr 
+	expr:  expr.EQ expr 
+	expr:  expr.NE expr 
+	expr:  expr.LE expr 
+	expr:  expr.LT expr 
+	expr:  expr.GE expr 
+	expr:  expr.GT expr 
+	expr:  expr.'+' expr 
+	expr:  expr.'-' expr 
+	expr:  expr.'*' expr 
+	expr:  expr.'/' expr 
+	expr:  expr.'%' expr 
+
+	'?'  shift 12
+	LOR  shift 15
+	LAND  shift 14
+	EQ  shift 16
+	NE  shift 17
+	LE  shift 18
+	LT  shift 19
+	GE  shift 20
+	GT  shift 21
+	IN  shift 13
+	'+'  shift 22
+	'-'  shift 23
+	'*'  shift 24
+	'/'  shift 25
+	'%'  shift 26
+	';'  shift 57
+	.  error
+
+
+state 54
+	expr:  expr.'?' expr ':' expr 
+	expr:  expr '?' expr ':' expr.    (7)
+	expr:  expr.IN array 
+	expr:  expr.LAND expr 
+	expr:  expr.LOR expr 
+	expr:  expr.EQ expr 
+	expr:  expr.NE expr 
+	expr:  expr.LE expr 
+	expr:  expr.LT expr 
+	expr:  expr.GE expr 
+	expr:  expr.GT expr 
+	expr:  expr.'+' expr 
+	expr:  expr.'-' expr 
+	expr:  expr.'*' expr 
+	expr:  expr.'/' expr 
+	expr:  expr.'%' expr 
+
+	LOR  shift 15
+	LAND  shift 14
+	EQ  shift 16
+	NE  shift 17
+	LE  shift 18
+	LT  shift 19
+	GE  shift 20
+	GT  shift 21
+	IN  shift 13
+	'+'  shift 22
+	'-'  shift 23
+	'*'  shift 24
+	'/'  shift 25
+	'%'  shift 26
+	.  reduce 7 (src line 81)
+
+
+state 55
+	array:  '[' array_element ']'.    (25)
+
+	.  reduce 25 (src line 128)
+
+
+state 56
+	array_element:  array_element ','.NUMBER 
+
+	NUMBER  shift 58
+	.  error
+
+
+state 57
+	statement:  VAR IDENT '=' expr ';'.    (4)
+
+	.  reduce 4 (src line 68)
+
+
+state 58
+	array_element:  array_element ',' NUMBER.    (28)
+
+	.  reduce 28 (src line 144)
+
+
+31 terminals, 6 nonterminals
+29 grammar rules, 59/16000 states
+0 shift/reduce, 0 reduce/reduce conflicts reported
+55 working sets used
+memory: parser 26/240000
+45 extra closures
+260 shift entries, 37 exceptions
+25 goto entries
+2 entries saved by goto default
+Optimizer space used: output 175/240000
+175 table entries, 19 zero
+maximum spread: 31, maximum offset: 49
